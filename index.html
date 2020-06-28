@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version. -->
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <!-- custom fonts and styles for the bootstrap template -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"
+        type="text/css">
+  <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        rel="stylesheet">
+  <link href="css/sb-admin-2.css" rel="stylesheet" type="text/css">
+  <!-- the following links add the CSS and Javascript required for the Leaflet Map -->
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+        integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+        rel="stylesheet"/>
+  <script crossorigin=""
+          integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
+          src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+  <!-- the following links incorporate the CSS required for custom icon creation -->
+  <link href="css/ionicons.min.css" rel="stylesheet">
+  <link href="css/leaflet.awesome-markers.css" rel="stylesheet">
+  <script src="js/leaflet.awesome-markers.js"></script>
+  <!-- the following links add the CSS and Javascript required for the Leaflet Map -->
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+        integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+        rel="stylesheet"/>
+  <script crossorigin=""
+          integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
+          src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"></script>
+  <script
+          crossorigin="anonymous"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- add style to the graph -->
+  <link rel="stylesheet" href="css/topFiveGraph.css">
+
+  <!-- Bootstrap core JavaScript-->
+  <script crossorigin="anonymous"
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="js/sb-admin-2.js"></script>
+
+  <!-- import the D3 script file -->
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <!-- functionality to get ports -->
+  <!-- load utilities.js -->
+  <script src="js/utilities.js"></script>
+  <!-- load basicMap.js -->
+  <script src="js/basicMap.js"></script>
+  <!-- functionality to get viewport -->
+  <!-- load screenSize.js -->
+  <script src="js/screenSize.js"></script>
+  <!-- load questions.js -->
+  <script src="js/questions.js"></script>
+  <!-- load quiz.js -->
+  <script src="js/quiz.js"></script>
+  <!-- load trackLocation.js -->
+  <script src="js/trackLocation.js"></script>
+  <!-- load uploadQuizAnswer.js -->
+  <script src="js/uploadQuestion.js"></script>
+  <!-- load uploadQuestion.js -->
+  <script src="js/uploadQuizAnswer.js"></script>
+  <!-- load numberCorrect.js -->
+  <script src="js/numberCorrect.js"></script>
+  <!-- load ranking.js -->
+  <script src="js/ranking.js"></script>
+  <!-- load topFiveGraph.js -->
+  <script src="js/topFiveGraph.js"></script>
+  <!-- load participationRates.js -->
+  <script src="js/participationRates.js"></script>
+  <!-- load lastWeek.js -->
+  <script src="js/lastWeek.js"></script>
+  <!-- load closestFive.js -->
+  <script src="js/closestFive.js"></script>
+  <!-- load mostDifficult.js -->
+  <script src="js/mostDifficult.js"></script>
+  <!-- load lastFive.js -->
+  <script src="js/lastFive.js"></script>
+  <!-- load incorrect.js -->
+  <script src="js/incorrect.js"></script>
+  <!-- load help.js -->
+  <script src="js/help.js"></script>
+
+  <!-- the following CSS is used to set the size of the Map -->
+  <style type="text/css">
+    #mapid {
+      height: 180px;
+    }
+  </style>
+
+  <!-- the following CSS is used to set the style of the Table
+  style by: https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_id2 -->
+  <style>
+    table {
+      width:100%;
+    }
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
+    table#t01 th {
+      background-color: black;
+      color: white;
+    }
+  </style>
+
+  <!-- JQuery -->
+  <script crossorigin="anonymous"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <title>CEGE0043 APP</title>
+  <!-- adapted from: https://blackrockdigital.github.io/startbootstrap-sb-admin-2/ -->
+
+</head>
+
+
+<!-- body part -->
+<body id="page-top">
+<!-- >wrapper part -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center">
+      <div class="sidebar-brand-text mx-3">CEGE0043 App</div>
+    </a>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- the div for part shown in large screen (question setting app) -->
+    <div class="d-none d-lg-block">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="checkQuestionsData()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show/Remove All Questions I Created</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseThree" aria-expanded="true" class="nav-link collapsed" data-target="#collapseThree"
+           data-toggle="collapse" href="#">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show Daily Participation Rates</span>
+        </a>
+        <div aria-labelledby="headingThree" class="collapse" data-parent="#accordionSidebar" id="collapseThree">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a ; class="collapse-item" href="#" onclick="getUserRates()">For Me Only</a>
+            <a class="collapse-item" href="#" onclick="getAllRates()">For All Users</a>
+          </div>
+        </div>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="checkLastWeek()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show/Remove Questions by All Users Last Week </span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="checkClosestFive()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show/Remove 5 Closest Questions</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="checkDifficultTable();">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show/Remove 5 Most Difficult Questions</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="getQuestionHelp();">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Help</span>
+        </a>
+      </li>
+    </div>
+    <!-- End of div for question setting app -->
+
+
+    <!-- the div for part shown in small screen (quiz app) -->
+    <div class="d-lg-none">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="getQuizData()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show Quiz I Created</span>
+        </a>
+      </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="getAllQuiz()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show Quiz by All Users</span>
+        </a>
+      </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="getRanking()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Get My Ranking</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="getTopFive()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Top 5 Scorers</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="checkLastFive()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show/Remove Last 5 Questions I Answered</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="checkIncorrect()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Show Questions I Answered Incorrectly</span>
+        </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <li class="nav-item">
+        <a aria-controls="collapseOne" aria-expanded="true" class="nav-link collapsed" data-target=""
+           data-toggle="collapse"
+           href="#" onclick="getQuizHelp()">
+          <!-- the next line is the cog image -->
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Help</span>
+        </a>
+      </li>
+    </div>
+    <!-- End of div for quiz app -->
+  </ul>
+  <!-- End of Sidebar -->
+
+
+  <!-- for the main part of app -->
+  <div class="container-fluid">
+    <!-- For question setting app in large screen -->
+    <div id="question_setting_app_title" class="d-none d-lg-block">
+      <h1>Question Setting App</h1>
+    </div>
+    <!-- For quiz app in small screen -->
+    <div id="quiz_app_title" class="d-lg-none">
+      <h1>Location-Based Quiz App</h1>
+    </div>
+
+    <!-- For basic map in both two sizes of screen -->
+    <div id="mapid" style="height: 600px; width: 600px"></div>
+    <button id='refreshLocationLayers' onclick='refreshLocationLayers()'>Refresh Location</button>
+
+    <!-- For question setting app in large screen -->
+    <div class="d-none d-lg-block" id="content-wrapper-question">
+      <!-- For table of 5 most difficult questions -->
+      <div id="difficultTable"></div>
+      <!-- Add the form to input questions-->
+      <div>
+        <hr>
+        <!-- The HTML <form> element is used here -->
+        <form id="question_form" onsubmit="checkForm(); return false">
+          <h3> 1. Please click on map to choose the location you want to add a question at </h3>
+          <hr>
+          <h3> 2. Please input your question here</h3>
+          <label for="question_title">Question title:</label><input id="question_title" required size="40" type="text"><br/>
+          <label for="question_text">Question text:</label><input id="question_text" required size="80" type="text"><br/>
+          <hr>
+          <h3> 3. Please input four possible answers here</h3>
+          <label for="answer_1">Answer 1:</label><input id="answer_1" required size="50" type="text"><br/>
+          <label for="answer_2">Answer 2:</label><input id="answer_2" required size="50" type="text"><br/>
+          <label for="answer_3">Answer 3:</label><input id="answer_3" required size="50" type="text"><br/>
+          <label for="answer_4">Answer 4:</label><input id="answer_4" required size="50" type="text"><br/>
+          <hr>
+          <h3> 4. Please choose the correct answers here</h3>
+          <input id="select_answer_1" name="answer" type="radio"/>Answer 1 &nbsp
+          <input id="select_answer_2" name="answer" type="radio"/>Answer 2 &nbsp
+          <input id="select_answer_3" name="answer" type="radio"/>Answer 3 &nbsp
+          <input id="select_answer_4" name="answer" type="radio"/>Answer 4 &nbsp
+          <br/>
+          <hr>
+          <!-- add buttons -->
+          <h3>5. Click here to submit your question</h3>
+          <div><input id="startUpload" type="submit" value="Submit your question"></div>
+          <hr>
+          <div id="dataUploadResult">The result of the upload goes here</div>
+          <hr>
+        </form>
+        <hr>
+        <hr>
+        <h4>Delete the submitted question by the generated automatically ID (For developer) </h4>
+        <label for="deleteID">Delete ID:</label><input id="deleteID" size="10" type="text"/><br/>
+        <button id="startDelete" onclick="deleteRecord()">Delete Record</button>
+        <hr>
+        <div id="dataDeleteResult">The result of the upload goes here</div>
+        <hr>
+      </div>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- For graph of participation rates -->
+      <div id="ratesGraph"></div>
+    </div>
+
+    <!-- For graph showing quiz app in small screen -->
+    <div class="d-lg-none" id="content-wrapper-quiz">
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- create a svg to hold the graph -->
+      <div id="topFiveGraph" style="width: 600px; height: 400px;"></div>
+    </div>
+  </div>
+  <!-- End of Main Content -->
+</div>
+<!-- end of wrapper -->
+</body>
+
+
+<script>
+
+  //code to load the map when the page is loaded
+  document.addEventListener('DOMContentLoaded', function () {
+    loadMap();
+  }, false);
+
+  function loadMap() {
+    getPorts();
+    getScreenSize();
+    loadLeafletMap();
+  }
+
+</script>
+
+</html>
