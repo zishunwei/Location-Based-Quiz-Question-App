@@ -1,4 +1,4 @@
-# CEGE0043-APPs
+# Location-Based Quiz&Question App
 
 The APPs include a Question Setting App and a Location Based Quiz App. These two apps are set in one index html divided by
  Bootstrap based on detecting the screen size of user.
