@@ -204,7 +204,7 @@ topFiveGraph.css: Style for top five scorers graph.
 port.xml: Include the port id
 
 ## Third Party code:
-1. codes in practicals in CEGE0043 module Web and Mobile GIS - Apps and Programming (19/20) by Dr Claire Ellul 
+1. codes in practicals a module Web and Mobile GIS - Apps and Programming (19/20) by Dr Claire Ellul 
 - Basic Bootstrap structure of index.html (week6 practical about Bootstap)
 - Functions related tp data uploading, tracking location, basic map, Ajax request, displaying map layer and detecting port id
 2. topFiveGraph: https://stackoverflow.com/questions/38983807/how-to-animate-a-horizontal-d3-bar-chart/38987948#38987948
